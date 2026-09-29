@@ -5,7 +5,7 @@ import sqlite3
 from datetime import datetime
 
 import streamlit as st
-
+import json
 from google import genai
 from google.oauth2.credentials import Credentials
 from google.auth.transport.requests import Request
@@ -335,49 +335,26 @@ def generate_gemini_response(prompt):
 
 def get_gmail_service():
 
-    creds = None
+    try:
+        token_data = json.loads(st.secrets["GMAIL_TOKEN_JSON"])
 
-    if os.path.exists("token.json"):
-
-        creds = Credentials.from_authorized_user_file(
-            "token.json",
+        creds = Credentials.from_authorized_user_info(
+            token_data,
             SCOPES
         )
 
-    if not creds or not creds.valid:
-
-        if (
-            creds
-            and creds.expired
-            and creds.refresh_token
-        ):
-
+        if creds.expired and creds.refresh_token:
             creds.refresh(Request())
 
-        else:
+        return build(
+            "gmail",
+            "v1",
+            credentials=creds
+        )
 
-            flow = InstalledAppFlow.from_client_secrets_file(
-                "credentials.json",
-                SCOPES
-            )
-
-            creds = flow.run_local_server(
-                port=0
-            )
-
-        with open("token.json", "w") as token:
-
-            token.write(
-                creds.to_json()
-            )
-
-    return build(
-        "gmail",
-        "v1",
-        credentials=creds
-    )
-
-
+    except Exception as e:
+        st.error(f"Gmail connection failed: {e}")
+        return None
 # ============================================================
 # GMAIL MESSAGE LIST
 # ============================================================
