@@ -5,6 +5,23 @@ import sqlite3
 from datetime import datetime
 
 import streamlit as st
+# ============================================================
+# GOOGLE LOGIN
+# ============================================================
+
+if not st.user.is_logged_in:
+    st.title("📧 AI Email Management Agent")
+    st.write("Please sign in with your Google account to continue.")
+
+    if st.button("🔐 Sign in with Google"):
+        st.login()
+
+    st.stop()
+
+st.sidebar.success(f"Logged in as: {st.user.email}")
+
+if st.sidebar.button("🚪 Logout"):
+    st.logout()
 import json
 from google import genai
 from google.oauth2.credentials import Credentials
