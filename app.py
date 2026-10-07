@@ -946,15 +946,15 @@ Reply Needed:
 
     if error:
 
-    return {
-        "email": email,
-        "ai_analysis": error
-    }
+       return {
+          "email": email,
+          "ai_analysis": error
+      }
 
-return {
-    "email": email,
-    "ai_analysis": result
-}
+    return {
+      "email": email,
+      "ai_analysis": result
+    }
 
 
 def task_agent(state):
