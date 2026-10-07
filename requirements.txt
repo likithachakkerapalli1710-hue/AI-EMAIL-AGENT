@@ -3,4 +3,5 @@ google-genai
 google-api-python-client
 google-auth-httplib2
 google-auth-oauthlib
+langgraph
 Authlib>=1.3.2
