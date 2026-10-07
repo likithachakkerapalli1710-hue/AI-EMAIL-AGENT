@@ -980,9 +980,9 @@ def task_agent(state):
         )
 
        return {
-    "email": email,
-    "task_result": task_data
-}
+        "email": email,
+         "task_result": task_data
+       }
 
    return {
     "email": email,
