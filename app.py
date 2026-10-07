@@ -958,15 +958,12 @@ Reply Needed:
 
 
 def task_agent(state):
-
     email = state["email"]
 
     task = detect_task(email)
-
     deadline = detect_deadline(email)
 
     if task:
-
         task_data = {
             "id": email["id"],
             "subject": email["subject"],
@@ -975,20 +972,17 @@ def task_agent(state):
             "sender": email["sender"]
         }
 
-        save_task_to_database(
-            task_data
-        )
+        save_task_to_database(task_data)
 
-       return {
-         "email": email,
-         "task_result": task_data
-       }
+        return {
+            "email": email,
+            "task_result": task_data
+        }
 
-   return {
-    "email": email,
-    "task_result": None
-}
-
+    return {
+        "email": email,
+        "task_result": None
+    }
 def reply_agent(state):
 
     return {
