@@ -946,13 +946,15 @@ Reply Needed:
 
     if error:
 
-        return {
-            "ai_analysis": error
-        }
-
     return {
-        "ai_analysis": result
+        "email": email,
+        "ai_analysis": error
     }
+
+return {
+    "email": email,
+    "ai_analysis": result
+}
 
 
 def task_agent(state):
@@ -977,14 +979,15 @@ def task_agent(state):
             task_data
         )
 
-        return {
-            "task_result": task_data
-        }
+       return {
+    "email": email,
+    "task_result": task_data
+}
 
-    return {
-        "task_result": None
-    }
-
+   return {
+    "email": email,
+    "task_result": None
+}
 
 def reply_agent(state):
 
